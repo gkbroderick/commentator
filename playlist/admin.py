@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import PlayInstance, Comment
+
+admin.site.register(PlayInstance)
+admin.site.register(Comment)
