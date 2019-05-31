@@ -1,5 +1,10 @@
+certifi==2019.3.9
+chardet==3.0.4
 Django==1.11.20
+idna==2.8
 postgres==2.2.2
 psycopg2==2.8.2
 psycopg2-binary==2.8.2
 pytz==2019.1
+requests==2.22.0
+urllib3==1.25.3
