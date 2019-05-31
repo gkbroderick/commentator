@@ -1,0 +1,17 @@
+{% load static %}
+
+{% block content %}
+<div class="song-container col-12">
+  <img class="songlist-album-art" src="{{song.release.largeimageuri|default:backup_album_image}}" alt="{{ song.release.name|default:"" }}">
+  <h3 class="songlist-song-name">{{ song.track.name }}</h3>
+  <h5 class="songlist-artist">{{ song.artist.name }}</h5>
+  <p class="songlist-album"><em>{{ song.release.name|default:"" }}</em></p>
+  <p class="songlist-album-info">
+    {# one line for django spacing issue with newlines #}
+    <span>{{ song.releaseevent.year|default:"" }}</span>{% if song.releaseevent.year and song.label.name %}, {% endif %}
+    {{ song.label.name|default:"" }}
+  </p>
+
+  <p>{{song.commentator_comments}}</p>
+</div>
+{% endblock %}
