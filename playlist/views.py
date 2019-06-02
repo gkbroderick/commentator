@@ -64,6 +64,7 @@ def comment(request):
             'play_instance_kexp_id' : kexp_play_id,
             'comment_id' : comment.id,
             'comment_text' : comment.comment_text,
+            'comment_time_edited' : comment.date_created,
         }
 
     return JsonResponse(response)

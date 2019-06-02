@@ -9,7 +9,7 @@
       alt="{{ song.release.name|default:"" }}">
   </div>
 
-  <div class="song-Text-container col-12 col-sm-7">
+  <div class="song-text-container col-12 col-sm-7">
     {# hard coding tz in for now #}
     <p>{{song.airdate_datetime|timezone:"America/Los_Angeles"}}</p>
     {# differentiate between airbreak and media play #}
