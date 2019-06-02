@@ -13,7 +13,7 @@ class PlayInstance(models.Model):
 
 class Comment(models.Model):
     play_instance = models.ForeignKey(PlayInstance, on_delete=models.CASCADE)
-    comment_text = models.TextField()
+    comment_text = models.TextField(blank=False)
     date_created = models.DateTimeField('date created',  default=timezone.now)
     date_last_edited = models.DateTimeField('last edited',  default=timezone.now)
 
