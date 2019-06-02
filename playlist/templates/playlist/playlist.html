@@ -16,13 +16,13 @@
 
 <div class="songlist-container row">
   {% for song in playlist %}
-    {% include "./playitem_partial.html" %}
+    {% include "./playitem/playitem_partial.html" %}
   {% empty %}
     <p class="notice">Looks like there were no songs were played in the last hour!</p>
   {% endfor %}
 </div>
 </div>
 
-
+<script src="{% static 'playlist/comment_handling.js'%}"></script>
 
 {% endblock %}

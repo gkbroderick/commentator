@@ -1,18 +1,24 @@
+from datetime import timedelta
+
 from django.db import models
 from django.utils import timezone
 
 class PlayInstance(models.Model):
     name = models.CharField(max_length=250)
     kexp_play_id = models.PositiveIntegerField()
+    airdate = models.DateTimeField('airdate', default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return "%s: %s" % (self.name, self.airdate.strftime('%Y-%m-%d %H:%M:%S'))
 
 class Comment(models.Model):
     play_instance = models.ForeignKey(PlayInstance, on_delete=models.CASCADE)
-    comment_text = models.CharField(max_length=1000)
+    comment_text = models.TextField()
     date_created = models.DateTimeField('date created',  default=timezone.now)
     date_last_edited = models.DateTimeField('last edited',  default=timezone.now)
 
+    class Meta:
+        ordering = ['date_created']
+
     def __str__(self):
-        return "%s, %s" % (self.play_instance, date_created)
+        return "%s, comment on %s" % (self.play_instance, self.date_created.strftime('%Y-%m-%d %H:%M:%S'))

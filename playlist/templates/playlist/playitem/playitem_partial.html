@@ -1,0 +1,34 @@
+{% load static %}
+{% load tz %}
+
+{% block content %}
+<div class="song-container row">
+
+  <div class="song-art-container col-12 col-sm-3 offset-sm-2">
+    <img class="songlist-album-art" src="{{song.release.largeimageuri|default:backup_album_image}}"
+      alt="{{ song.release.name|default:"" }}">
+  </div>
+
+  <div class="song-Text-container col-12 col-sm-7">
+    {# hard coding tz in for now #}
+    <p>{{song.airdate_datetime|timezone:"America/Los_Angeles"}}</p>
+    {# differentiate between airbreak and media play #}
+    {% if song.playtype.playtypeid == 4 %}
+      <h3 class="songlist-song-name">Air Break</h3>
+    {% else %}
+      <h3 class="songlist-song-name">{{ song.track.name }}</h3>
+      <h5 class="songlist-artist">{{ song.artist.name }}</h5>
+      <p class="songlist-album"><em>{{ song.release.name|default:"" }}</em></p>
+      <p class="songlist-album-info">
+        {# one line for django spacing issue with newlines #}
+        <span>{{ song.releaseevent.year|default:"" }}</span>{% if song.releaseevent.year and song.label.name %}, {% endif %}
+        {{ song.label.name|default:"" }}
+      </p>
+    {% endif %}
+
+    {# Comments in separate partial #}
+    {% include "./playitem_comments.html" %}
+
+  </div>
+</div>
+{% endblock %}

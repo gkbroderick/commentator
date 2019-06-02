@@ -1,0 +1,52 @@
+{% load tz %}
+
+{% block content %}
+
+{% if song.playlist_comments %}
+  <h5>Comments</h5>
+  {% for comment in song.playlist_comments %}
+    <div id="comment{{comment.id}}" class="playlist-comment">
+      <h6>{{comment.date_created|timezone:"America/Los_Angeles"}}</h6>
+      <p id="commentText{{comment.id}}">{{comment.comment_text}}</p>
+    </div>
+    <form id="commentEditor{{comment.id}}" class="comment-submit-form" action="" method="post"
+        data-playitem-id="{{song.playid}}"
+        {% if song.playtype.playtypeid == 4 %}
+          data-playitem-name="Airbreak"
+        {% else %}
+          data-playitem-name="{{song.track.name}}"
+        {% endif %}
+        data-playitem-airdate="{{song.airdate_datetime}}"
+        data-comment-id="{{comment.id}}">
+      {% csrf_token %}
+      <textarea class="comment-text" name="comment_text" rows="4" cols="60" maxlength="2000">{{comment.comment_text}}</textarea>
+      <input type="submit" value="Edit Comment">
+      <span class='help-text'></span>
+    </form>
+
+  {% endfor %}
+{% endif %}
+
+
+
+
+{# hide/show button for new comment#}
+
+{# new comment submission form (assumes placed within a forloop) #}
+<form id="commentCreator{{ forloop.counter }}" class="comment-submit-form" action="" method="post"
+    data-playitem-id="{{song.playid}}"
+    {% if song.playtype.playtypeid == 4 %}
+      data-playitem-name="Airbreak"
+    {% else %}
+      data-playitem-name="{{song.track.name}}"
+    {% endif %}
+    data-playitem-airdate="{{song.airdate_datetime}}"
+    data-comment-id="0">
+  {% csrf_token %}
+  <textarea class="comment-text" name="comment_text" rows="4" cols="60" maxlength="2000"></textarea>
+  <input type="submit" value="Enter New Comment">
+  <span class='help-text'></span>
+</form>
+
+
+{% endblock %}

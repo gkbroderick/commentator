@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.playlist, name='playlist'),
+    url(r'^comment/', views.comment, name='comment'),
 ]

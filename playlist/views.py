@@ -1,8 +1,10 @@
 import json, requests
 from datetime import datetime, timedelta
+from dateutil import parser
+from django.utils import timezone
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 from .models import PlayInstance, Comment
 
@@ -10,7 +12,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
 def playlist(request):
-    endtime = datetime.utcnow()
+    endtime = timezone.now()
     starttime = endtime - timedelta(hours=1)
     starttime_string = starttime.strftime('%Y-%m-%dT%H:%M:%SZ')
 
@@ -20,16 +22,54 @@ def playlist(request):
     data_parsed = [x for x in data['results'] if x['playtype']['playtypeid'] == 1 or 4]
 
     for play_item in data_parsed:
-        has_comments = PlayInstance.objects.filter(
+        play_item['airdate_datetime'] = datetime.strptime(play_item['airdate'],'%Y-%m-%dT%H:%M:%SZ')
+        db_match= PlayInstance.objects.filter(
             kexp_play_id = play_item["playid"],
         )
-        if has_comments:
-            play_item['commentator_comments'] = "Blah blah blah"
-        else:
-            play_item['commentator_comments'] = "no comments"
+        if db_match:
+            play_item['playlist_comments'] = db_match.first().comment_set.all()
 
     context = {
         'playlist': data_parsed,
         'backup_album_image': static('frontend/images/record.svg')
     }
     return render(request, 'playlist/playlist.html', context)
+
+
+def comment(request):
+    response = {'response': '',}
+    if request.is_ajax():
+        kexp_play_id = request.POST.get('play_instance_kexp_id')
+        comment_id = request.POST.get('comment_id')
+
+        play_instance, play_instance_status = PlayInstance.objects.get_or_create(
+            kexp_play_id = kexp_play_id,
+            name = request.POST.get('play_instance_name'),
+            airdate = parser.parse(request.POST.get('play_instance_airdate')).replace(tzinfo=timezone.utc),
+        )
+
+        try:
+            comment = Comment.objects.filter(id=comment_id, play_instance=play_instance).get()
+        except (KeyError, Comment.DoesNotExist):
+            comment = Comment(
+                play_instance = play_instance,
+                date_created = timezone.now(),
+            )
+        comment.comment_text = request.POST.get('comment_text')
+        comment.date_last_edited = timezone.now()
+        comment.save()
+
+        response = {
+            'response': 'comment ' + str(comment.id) + ' added or edited.',
+            'play_instance_kexp_id' : kexp_play_id,
+            'comment_id' : comment.id,
+            'comment_text' : comment.comment_text,
+        }
+
+    return JsonResponse(response)
+
+
+
+
+
+        # response['id'] = register.id
