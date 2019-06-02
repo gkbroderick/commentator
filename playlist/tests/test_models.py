@@ -1,5 +1,14 @@
 from django.test import TestCase
 
+from playlist.models import PlayInstance
+from playlist.models import Comment
+
+
+# class PlayInstanceTest(TestCase):
+
+
+
+
 #---comment creation
 
 #Comment should not save if text blank
