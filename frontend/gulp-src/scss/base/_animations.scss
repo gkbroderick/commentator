@@ -1,0 +1,53 @@
+.fadein {
+  @include animation-base(fadein, 900ms);
+}
+@include keyframes(fadein) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadein-left {
+  @include animation-base(fadein-left, 600ms, ease-out, 300ms);
+}
+@include keyframes(fadein-left) {
+  0% {
+    opacity: 0;
+    @include transform(translate3d(-30px,0,0));
+  }
+  100% {
+    opacity: 1;
+    @include transform(none);
+  }
+}
+
+.fadeout-right {
+  @include animation-base(fadeout-right, 600ms, ease-in, 300ms);
+}
+@include keyframes(fadeout-right) {
+  0% {
+    opacity: 0;
+    @include transform(translate3d(0,0,0));
+  }
+  100% {
+    opacity: 1;
+    @include transform(translate3d(-30px,0,0));
+  }
+}
+
+
+//rellax init transition change to avoid jumpy initial load application
+.rellax {
+  transition: opacity 250ms;
+  opacity: 1;
+}
+.init-was-hidden {
+  transition: opacity 250ms;
+  opacity: 1;
+}
+.init-hide {
+  opacity: 0;
+}

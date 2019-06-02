@@ -1,0 +1,36 @@
+.parallax-under-content {
+  position:absolute;
+  z-index: 0
+}
+
+.content-over-parallax {
+  position: relative;
+  z-index: 200;
+}
+
+.nav-padding {
+  padding-top: 120px;
+}
+
+.homepage-overview {
+  padding-top: 100px;
+  width: 100%;
+  max-width: 1100px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  background: $brand-indigo;
+  // background: white; //TESTING
+
+  min-height: 900px;
+}
+.parallax-overflow-container {
+  overflow: hidden;
+}
+
+
+.homepage-overview-content {
+  margin: 100px auto;
+  width: 850px;
+  display: block;
+}

@@ -1,0 +1,28 @@
+//Form Customization
+
+//Typography
+.form-help-text {
+  color: site-grey;
+  font-size: 0.8em;
+}
+
+.form-error-text {
+  margin-top: 0.2em;
+  color: red;
+}
+
+//Base form els
+.form-field {
+  margin-bottom: 1.5em;
+}
+
+.form-button {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.form-user-config {
+  input {
+    margin-top: 0.3em;
+  }
+}

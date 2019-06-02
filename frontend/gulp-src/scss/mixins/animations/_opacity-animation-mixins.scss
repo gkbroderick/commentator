@@ -1,0 +1,44 @@
+// ===== Opacity Animations =====
+
+@mixin fadein($duration: 300ms, $timing-function: null, $delay: null, $iterations: null) {
+  $name: fadein;
+  @include animation-base($name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($name){
+    @include keyframes-base($name, opacity, 0, 1);
+  }
+}
+@mixin fadeout($duration: 300ms, $timing-function: null, $delay: null, $iterations: null) {
+  $name: fadeout;
+  @include animation-base($name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($name){
+    @include keyframes-base($name, opacity, 1, 0);
+  }
+}
+
+//Opacity change from / to (useful for fadein/out of partial opacity elements)
+@mixin fadeto($custom-name, $initial-opacity: 0, $end-opacity: 1,
+  $duration: 300ms, $timing-function: null, $delay: null, $iterations: null) {
+  @include animation-base($custom-name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($custom-name){
+    @include keyframes-base($custom-name, opacity, $initial-opacity, $end-opacity);
+  }
+}
+
+
+// //Opacity
+// .fadein {
+//   @include fadein;
+// }
+// .fadeout {
+//   @include fadeout;
+// }
+// .fadeout-custom {
+//   @include fadeout(100ms, ease-out, 300ms);
+// }
+// .more-fadeouts {
+//   @include fadeout;
+// }
+
+// .fadeto {
+//   @include fadeto(fadeto, 0.3, 0.7, 1000ms);
+// }

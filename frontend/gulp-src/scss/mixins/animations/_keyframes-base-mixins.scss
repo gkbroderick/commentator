@@ -1,0 +1,203 @@
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    //insert in specific keyframes as a content block when including
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    //insert in specific keyframes as a content block when including
+    @content;
+  }
+}
+
+//deprecating +keyframes-custom (same as +keyframes)
+@mixin keyframes-custom($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    //insert in specific keyframes as a content block when including
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    //insert in specific keyframes as a content block when including
+    @content;
+  }
+}
+
+@mixin keyframes-base-no-prefix($animation-name, $property, $value-init, $value-end) {
+  @keyframes #{$animation-name} {
+    0% {
+      #{$property}: $value-init;
+    }
+    100% {
+      #{$property}: $value-end;
+    }
+  }
+}
+
+@mixin keyframes-base($animation-name, $property, $value-init, $value-end) {
+  @-webkit-keyframes #{$animation-name} {
+    0% {
+      @if $property == transform {
+        -webkit-#{$property}: $value-init;
+      }
+      @else {
+        #{$property}: $value-init;
+      }
+    }
+    100% {
+      @if $property == transform {
+        -webkit-#{$property}: $value-end;
+      }
+      @else {
+        #{$property}: $value-end;
+      }
+    }
+  }
+  @keyframes #{$animation-name} {
+    0% {
+      #{$property}: $value-init;
+    }
+    100% {
+      #{$property}: $value-end;
+    }
+  }
+}
+
+@mixin keyframes-base-loop($animation-name, $property, $value-init, $value-end, $midpoint: 50%) {
+  @-webkit-keyframes #{$animation-name} {
+    0%, 100% {
+      @if $property == transform {
+        -webkit-#{$property}: $value-init;
+      }
+      @else {
+        #{$property}: $value-init;
+      }
+    }
+    #{$midpoint} {
+      @if $property == transform {
+        -webkit-#{$property}: $value-end;
+      }
+      @else {
+        #{$property}: $value-end;
+      }
+    }
+  }
+  @keyframes #{$animation-name} {
+    0%, 100% {
+      #{$property}: $value-init;
+    }
+    #{$midpoint} {
+      #{$property}: $value-end;
+    }
+  }
+}
+
+// ==== Map-based Keyframe mixins ====
+//For info on the map data type in sass please see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#maps
+
+
+//== Utility mixins to build keyframes from maps ==
+
+//NOTE-- this must be included within a `@keyframes` selector in order to pass Sass parser
+@mixin build-keyframe-content($map) {
+  @each $property, $value in $map {
+    //Check for transform property in order to add -webkit- prefix
+    @if $property == transform {
+      -webkit-#{$property}: $value;
+    }
+    @else {
+      #{$property}: $value;
+    }
+  }
+}
+@mixin build-keyframe-content-novp($map) { //no vendor prefix version of the keyframe prop builder
+  @each $property, $value in $map {
+    #{$property}: $value;
+  }
+}
+
+//NOTE-- this must be included within a `@keyframes` selector in order to pass Sass parser
+// Used with compound maps consisting of keyframes as keys and maps of property/values as values (see test below)
+@mixin build-keyframe-from-map($keyframe-property-map, $vendorprefix: true){
+  $keys: map-keys($keyframe-property-map);
+  @for $i from 1 through length($keys) {
+    $curKey: nth($keys, $i);
+    $curMap: map-get($keyframe-property-map, $curKey);
+    #{$curKey} {
+      @if $vendorprefix {
+        @include build-keyframe-content($curMap);
+      }
+      @else {
+        @include build-keyframe-content-novp($curMap);
+      }
+    }
+  }
+}
+
+//=== map-based base keyframe mixins ===
+
+// Following two mixins require maps of CSS property/values as inputs.
+// Mostly included as legacy for some standard animations, please see keyframes-base-map for more up-to-date version
+// Example usage:
+// $test-map-init: (opacity: 0, top: -300px, transform: scale(0,0) );
+// $test-map-end: (opacity: 1, top: 0px, transform: scale(1,1) );
+// @include keyframes-multiprop(test, $test-map-init, $test-map-end)
+@mixin keyframes-multiprop($animation-name, $property-map-init, $property-map-end) {
+  @-webkit-keyframes #{$animation-name} {
+    0% {
+      @include build-keyframe-content($property-map-init)
+    }
+    100% {
+      @include build-keyframe-content($property-map-end)
+    }
+  }
+  @keyframes #{$animation-name} {
+    0% {
+      @include build-keyframe-content-novp($property-map-init)
+    }
+    100% {
+      @include build-keyframe-content-novp($property-map-end)
+    }
+  }
+}
+
+@mixin keyframes-multiprop-loop($animation-name, $property-map-init, $property-map-end, $midpoint: 50%) {
+  @-webkit-keyframes #{$animation-name} {
+    0%, 100% {
+      @include build-keyframe-content($property-map-init)
+    }
+    #{$midpoint} {
+      @include build-keyframe-content($property-map-end)
+    }
+  }
+  @keyframes #{$animation-name} {
+    0%, 100% {
+      @include build-keyframe-content-novp($property-map-init)
+    }
+    #{$midpoint} {
+      @include build-keyframe-content-novp($property-map-end)
+    }
+  }
+}
+
+////Takes a keyframe property map as an input, please see below the mixin for an example
+////example usage:
+// $test-keyframe-property-map: (
+//   (0%, 100%): (color:blue, top: 30, transform: scale(0.1,0.1)),
+//   20%: (color: red, top: 40),
+//   30%: (color: red, top: 40), //should be auto-merged into (20%, 30%)
+//   90%: (color: blue, top: 70)
+// );
+// @include keyframes-base-map(test, $test-keyframe-property-map);
+
+@mixin keyframes-base-map($animation-name, $keyframe-property-map, $check-key-duplicates: true) {
+  @if $check-key-duplicates == true {
+  //Uses function to auto-compress any accidental duplicate keyframes
+    $keyframe-property-map: map-compress-duplicate-keys($keyframe-property-map);
+  }
+
+  @-webkit-keyframes #{$animation-name} {
+    @include build-keyframe-from-map($keyframe-property-map);
+  }
+  @keyframes #{$animation-name} {
+    @include build-keyframe-from-map($keyframe-property-map, false);
+  }
+}

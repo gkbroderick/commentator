@@ -1,0 +1,22 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.81 56.55">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #f6b221;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <title>record</title>
+  <g>
+    <path id="icoRecord-outerCircle" class="cls-1" d="M28.53,56A27.77,27.77,0,0,0,28.53.5h-.26a27.77,27.77,0,0,0,0,55.55Z"/>
+    <path id="icoRecord-leftLine1" class="cls-1" d="M12.29,12.29a22.54,22.54,0,0,0-6.62,16"/>
+    <path id="icoRecord-leftLine2" class="cls-1" d="M15.65,15.65a17.8,17.8,0,0,0-5.23,12.62"/>
+    <path id="icoRecord-innerCircle" class="cls-1" d="M28.27,16.29a12,12,0,0,0,0,24h.26a12,12,0,0,0,0-24Z"/>
+    <path id="icoRecord-rightLine2" class="cls-1" d="M44.52,44.26a22.54,22.54,0,0,0,6.62-16"/>
+    <path id="icoRecord-rightLine1" class="cls-1" d="M41.16,40.9a17.8,17.8,0,0,0,5.23-12.62"/>
+    <path id="icoRecord-centerCircle" class="cls-1" d="M28.45,30.64a2.37,2.37,0,0,0,0-4.74h-.1a2.37,2.37,0,0,0,0,4.74Z"/>
+  </g>
+</svg>

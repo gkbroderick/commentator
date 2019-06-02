@@ -1,0 +1,24 @@
+//Colors
+$site-grey: #666666;
+$site-yellow: #f5b21e;
+$site-white: #ffffff;
+$site-black: #11181f;
+$site-cream: #fff6e2;
+
+$brand-gold: #F6B221;
+$brand-gold-dark: #e6a212;
+$brand-indigo: #10171F;
+
+// borders
+$border-brand: 2px $brand-gold solid !default;
+$border-brand-thin: 1px $brand-gold solid !default;
+$border-white: 2px $site-white solid !default;
+$border-white-thin: 1px $site-white solid !default;
+
+
+//--- Screen Width Controls and Breakpoints
+//1140px-- Using bootstrap's max container width
+$site-max: map-get($container-max-widths, xl) !default;
+
+//768px-- using bootstrap's grid breakpoints
+$nav-burger-breakpoint: map-get($grid-breakpoints, sm) !default;

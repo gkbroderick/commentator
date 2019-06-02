@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Din";
+  src: url("../fonts/alte-din-1451-mittelschrift.regular.ttf");
+}
+@font-face {
+  font-family: "Din Bold";
+  src: url("../fonts/alte-din-1451-mittelschrift.gepraegt.ttf");
+}
+
+h1,h2,h3,h4,h5 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Din Bold', 'Din', sans-serif;
+  letter-spacing: 0.016em; //Turned it down again since anti-aliasing reduces its girth
+}
+
+p {
+  // font-size: 1em;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  // line-height: 1.2em;
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+
+  letter-spacing: 0.016em; //Turned it down again since anti-aliasing reduces its girth.
+  font-weight: normal;
+
+  /** LINKS **/
+  a:link, a:active, a:visited, a:hover {
+  transition: color 200ms;
+  color:$site-yellow;
+  text-decoration:none;
+  }
+}

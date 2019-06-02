@@ -1,0 +1,40 @@
+
+.songlist-title-container {
+  text-align: center;
+  p {
+    margin-bottom: 0.3em;
+  }
+}
+
+.songlist-container {
+
+}
+
+.song-container {
+  // text-align: center;
+  padding: 0 2em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+
+}
+
+.songlist-album-art {
+  width: 100%;
+  max-width: 250px;
+  margin-bottom: 0.5em;
+}
+
+.songlist-song-name {
+  line-height: 1.1;
+  margin-bottom: 0.2em;
+}
+.songlist-artist {
+  font-family: "Din", "Roboto", "helvetica", sans-serif;
+  margin-bottom: 0.7em;
+}
+.songlist-album {
+  margin-bottom: 0.25em;
+}
+.songlist-album-info {
+  margin-bottom: 0.7em;
+}

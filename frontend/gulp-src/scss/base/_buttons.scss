@@ -1,0 +1,50 @@
+// setup example
+// <button type="button" class="btn-box">
+// 	<div class="color-box abs-00"></div>
+// 	<div class="btn-txt">CLICK ME</div>
+// </button>
+
+
+.btn-box{
+
+	//figure out more general button dimensions
+	// max-width: 230px;
+	// min-height: 50px;
+	// width: 100%;
+	// height: 100%;
+	position: relative;
+	// overflow: hidden;
+	background-color: transparent;
+	color: $brand-gold;
+	border: 2px $brand-gold solid;
+	text-align: center;
+	transition: 0.3s color;
+	cursor: pointer;
+	a {
+		text-decoration: none;
+		color: $brand-gold;
+	}
+}
+
+.btn-box:hover, .btn-box:hover a, .btn-box.active {color:$site-white;}
+
+.btn-box:hover .color-box, .btn-box.active .color-box{transform: translateX(0%);}
+
+//
+// .color-box{
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	height: 100%;
+// 	min-height: 62px;
+// 	background: $brand-gold;
+// 	transform: translateX(-100%);
+// 	transition: transform 0.4s;
+// }
+// .btn-txt{
+// 	position: relative;
+// 	top: 1px;
+// 	width: 100%;
+// 	font-size: 18px;
+// }

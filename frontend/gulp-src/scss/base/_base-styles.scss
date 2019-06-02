@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+body {
+  padding-top: 3.5em;
+  background-color: $brand-indigo;
+  color: $site-white;
+}
+
+p a:link {
+  text-decoration: underline;
+}
+
+.hide, .opacity-zero {
+  opacity:0;
+}
+
+.abs-00 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}

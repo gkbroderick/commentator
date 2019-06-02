@@ -1,0 +1,108 @@
+// Nav helper classes for adding proper padding-top to first page elements (if not just addding directly)
+
+.nav-padding {
+  padding-top: 120px;
+}
+.nav-margin {
+  margin-top: 120px;
+}
+
+
+//Nav Styling
+//NOTE: for use re-styling Bootstrap 4.1 navbar
+
+//pageNav show/hide on scroll transtions
+#pageNav {
+  transition: top 900ms;
+}
+
+//controlling nav bg with absolute bg element
+#navBarBg {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 250ms;
+  background: $brand-indigo;
+  box-shadow:  0 5px 10px black;
+  @media (min-width: #{$nav-burger-breakpoint}) {
+    background: linear-gradient(180deg, rgba(16, 23, 31, 0.95), rgba(16, 23, 31, 0.85) 98%, rgba(16, 23, 31, 0));
+    box-shadow: none;
+  }
+}
+//must make these pos:relative to index above the bg
+.navbar-brand, .navbar-toggler, .navbar-collapse {
+  position: relative;
+}
+
+.navbar-collapse {
+  padding-top: 10px;
+}
+
+
+//Overwriting Bootstrap nav
+.navbar {
+  // background: linear-gradient(180deg, rgba(16, 23, 31, 0.95), rgba(16, 23, 31, 0.85) 98%, rgba(16, 23, 31, 0));
+  @media (min-width: #{$nav-burger-breakpoint}) {
+    align-items: flex-end;
+  }
+}
+
+.navbar-nav {
+  font-family: "Din Bold";
+  letter-spacing: 0.05em;
+  .nav-item {
+    text-align: center;
+
+    font-size: 1em;
+    line-height: 1.5em;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    &:last-of-type {
+      border-bottom: none;
+    }
+    &.active {
+      background: $brand-gold;
+    }
+  }
+}
+// 2636013
+.navbar-brand {
+  a:link, a:active, a:visited, a:hover {
+    transition: color 200ms;
+    color:$site-yellow;
+    text-decoration:none;
+  }
+}
+
+// DESKTOP STYLING
+@media (min-width: #{$nav-burger-breakpoint}) {
+  .navbar-brand {
+    padding-bottom: 0;
+  }
+  .navbar-nav {
+    margin-right: 10px;
+    border-bottom: 1px solid $brand-gold;
+    .nav-item {
+      max-width: 134px;
+      font-size: 0.85em;
+      line-height: 1.3em;
+      border-bottom: none;
+
+      @media (min-width: 992px) {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+      &.active {
+        background: none;
+        border-bottom: 3px solid $brand-gold;
+      }
+      &:first-of-type {
+        margin-left: 0;
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}

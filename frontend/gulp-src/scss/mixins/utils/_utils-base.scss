@@ -1,0 +1,24 @@
+//Display Utils
+@mixin display-utils($extended: false) {
+  .hide {
+    visibility: hidden;
+  }
+  .kill {
+    display: none !important;
+  }
+  @if $extended {
+    .opacity-zero {
+      opacity: 0;
+    }
+  }
+  .abs-00 {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.hide-form {
+  visibility: hidden;
+  height: 0;
+}

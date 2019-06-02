@@ -1,0 +1,13 @@
+// For not duplicating keyframe rules for standard animations
+//adapted from: http://alistapart.com/article/dry-ing-out-your-sass-mixins
+$Keyframe-Placeholder-Selectors: (); //Dynamically populated, leave empty
+@mixin keyframe-dynamic($keyframe-name) {
+  $keyframe-selector: map-get($Keyframe-Placeholder-Selectors, $keyframe-name);
+
+  @if $keyframe-selector == null {
+    $keyframe-selector: unique-id();
+    $Keyframe-Placeholder-Selectors: map-merge($Keyframe-Placeholder-Selectors, ($keyframe-name:$keyframe-selector)) !global;
+    @content;
+  }
+}
+

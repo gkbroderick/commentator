@@ -1,0 +1,102 @@
+//Footer helper class for spacing out the bg image
+.footer-bottom {
+  padding-bottom: 33em; //For Footer over BG // May need to adjust if photo credit is added
+  @media (min-width: 992px) {
+    padding-bottom: 25em; //For Footer over BG when Footer Flex stacks
+  }
+}
+
+
+// FOOTER
+.page-footer {
+  position: absolute;
+  bottom: 0;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 120px;
+  margin: 50px auto 14px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 10; // Must go over bgs
+}
+
+.footer-slogan-imgs {
+  display: block;
+  margin: 3em auto;
+}
+
+
+////for reference - original flex code
+// Pre flex sassmeister and autoprefixer outputs! for reference if changes needed
+.page-footer-flex {
+ display: flex;
+ flex-direction: row;
+ flex-wrap: nowrap;
+ justify-content: space-around;
+ align-items: flex-end;
+ @media (max-width: 991px) {
+   flex-direction: column;
+   align-items: center;
+   & > div {
+     margin-bottom: 10px;
+   }
+ }
+}
+
+
+.footer-flex-sides, .footer-flex-center {
+ flex-grow: 1;
+ flex-shrink: 0;
+}
+
+.footer-flex-sides {
+ flex-basis: 40%;
+}
+.footer-flex-center {
+ flex-basis: 20%;
+ @media (max-width: 991px) {
+   order: -1;
+ }
+}
+
+.footer-address {
+  color: $site-white;
+  margin: 0;
+}
+
+.footer-kexp-gif {
+  margin: 0 auto;
+  width: 85px;
+}
+
+a.footer-link-icon {
+  height: 33px;
+  &:hover, &:active, &:focus{
+    text-decoration: none;
+    opacity: 0.75;
+    -webkit-transition: opacity 200ms;
+    transition: opacity 200ms;
+  }
+}
+
+.footer-link-icon {
+  // max-width: 33px;
+  margin-right: 40px;
+  &:last-of-type{
+    margin-right: 0;
+  }
+  & img {
+    max-width: 33px;
+  }
+}
+
+.photo-credits {
+  margin-top: 20px;
+  font-size: 0.85em;
+  color: $site-white;
+  padding: 0 2em;
+  @media (min-width: 992px) {
+    margin-top: 40px;
+  }
+}

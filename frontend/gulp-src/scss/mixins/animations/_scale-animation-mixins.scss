@@ -1,0 +1,129 @@
+// ====== Scale Animations =====
+// Generic versions are useful to control the output of keyframe rules
+
+//Start very large and at partial opacity and scale down to the correct size
+@mixin zoomenter($duration: 300ms, $timing-function: ease-out, $delay: null, $iterations: null) {
+  $name: zoomenter;
+  @include animation-base($name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($name){
+    $map-init: (transform: scale(15, 15), opacity: 0.3);
+    $map-end: (transform: scale(1, 1), opacity: 1);
+    @include keyframes-multiprop($name, $map-init, $map-end);
+  }
+}
+@mixin zoomenter-custom($custom-name, $initial-scale: 15, $initial-opacity: 0.3,
+  $duration: 300ms, $timing-function: ease-out, $delay: null, $iterations: null) {
+  @include animation-base($custom-name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($custom-name){
+    $map: (
+      0%: (transform: scale($initial-scale, $initial-scale), opacity: $initial-opacity ),
+      100%: (transform: scale(1, 1), opacity: 1)
+    );
+    @include keyframes-base-map($custom-name, $map);
+  }
+}
+
+//start small and scale up and slightly 'bump' over with an over-1 cubic-bezier timing function
+@mixin zoombump($duration: 300ms, $timing-function: cubic-bezier(0.26,0.5,0.62,1.44), $delay: null, $iterations: null) {
+  @include zoomenter-custom(zoombump, 0, 1, $duration, $timing-function, $delay, $iterations)
+}
+@mixin zoombump-custom($custom-name, $cubic-bezier-y2: 1.44, //larger generally means a larger bump, check cubic-bezier.com
+    $duration: 300ms, $timing-function: cubic-bezier(0.26,0.5,0.62,1.44), $delay: null, $iterations: null) {
+  @if $timing-function == cubic-bezier(0.26,0.5,0.62,1.44) and $cubic-bezier-y2 != 1.44 {
+    $timing-function: cubic-bezier(0.26,0.5,0.62,$cubic-bezier-y2);
+  }
+  @include zoomenter-custom($custom-name, 0, 1, $duration, $timing-function, $delay, $iterations)
+}
+
+
+//similar to zoombump but with fade, a defined midpoint, and a customizable version
+@mixin fadezoombump($duration: 600ms, $timing-function: ease-in, $delay: null, $iterations: null,
+    $animation-midpoint: 70%) {
+  $name: fadezoombump;
+  @include animation-base($name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($name){
+    $map: (
+      0%: (transform: scale(0, 0), opacity: 0),
+      $animation-midpoint: (transform: scale(1.1, 1.1), opacity: 1),
+      100%: (transform: scale(1, 1), opacity: 1)
+    );
+
+    @include keyframes-base-map($name, $map);
+  }
+}
+@mixin fadezoombump-custom($custom-name, $zoom-scale: 1.1, $initial-opacity: 0,
+    $duration: 600ms, $timing-function: ease-in, $delay: null, $iterations: null,
+    $animation-midpoint: 70%) {
+  @include animation-base($custom-name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($custom-name){
+    $map: (
+      0%: (transform: scale(0, 0), opacity: $initial-opacity),
+      $animation-midpoint: (transform: scale($zoom-scale, $zoom-scale), opacity: 1),
+      100%: (transform: scale(1, 1), opacity: 1)
+    );
+
+    @include keyframes-base-map($custom-name, $map, false);
+  }
+}
+
+
+//Also called the 'bump'--slightly increase in size and then return to normal scale. It may be useful to define a custom scaling with a custom version, or to adjust the transform-origin css property of the element to fine tune it.
+@mixin makepop($duration: 250ms, $timing-function: ease-in-out, $delay: null, $iterations: null, $animation-midpoint: 50%) {
+  $name: makepop;
+  @include animation-base($name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($name){
+    $transform-init: scale(1,1);
+    $transform-end: scale(1.45, 1.45);
+    @include keyframes-base-loop($name, transform, $transform-init, $transform-end, $animation-midpoint);
+  }
+}
+@mixin makepop-custom($custom-name, $scaleup: 1.45,
+  $duration: 250ms, $timing-function: ease-in-out, $delay: null, $iterations: null, $animation-midpoint: 50%) {
+  @include animation-base($custom-name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($custom-name){
+    $transform-init: scale(1,1);
+    $transform-end: scale($scaleup, $scaleup);
+    @include keyframes-base-loop($custom-name, transform, $transform-init, $transform-end, $animation-midpoint);
+  }
+}
+
+
+
+
+
+
+
+//========== Tests ==========
+
+
+// //specialized
+// .zoomenter{
+//   @include zoomenter();
+// }
+// .makepop-twice{
+//   @include makepop(300ms, linear, 0, 2);
+// }
+// .makepop-custom{
+//   @include makepop-custom(makepop-test, 1.1)
+// }
+// .zoomenter-custom {
+//   @include zoomenter-custom(zoomenter-test, 3, 0.5)
+// }
+// .zoombump {
+//   @include zoombump(300ms, cubic-bezier(.26,.5,.62,1.44));
+// }
+// .zoombump-custom {
+//   @include zoombump-custom(ze-c, 1.22)
+// }
+// .fadezoombump {
+//   @include fadezoombump();
+// }
+// .fadezoombump-custom {
+//   @include fadezoombump-custom(fzb-test,2,0.3,2000ms);
+// }
+// .makepop-shrink-3times {
+//   @include makepop-custom(makepop-shrink, 0.5, 250ms, linear, 0, 3)
+// }
+
+
+

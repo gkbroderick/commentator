@@ -1,0 +1,32 @@
+{
+  "name": "kexp_commentator",
+  "version": "1.0.0",
+  "description": "Node Front-end for Django experiment",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkbroderick/commentator"
+  },
+  "author": "Galen Broderick",
+  "license": "ISC",
+  "homepage": "https://github.com/gkbroderick/commentator",
+  "devDependencies": {
+    "del": "^4.0.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.11.0"
+  },
+  "dependencies": {}
+}

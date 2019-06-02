@@ -1,0 +1,39 @@
+@mixin animation-base-no-prefix( //Large amount of optional arguments, so passed to next line
+  $animation-name: default,
+  $animation-duration: 300ms,
+  $animation-timing-function: null, //unless specified `null` creates no css output
+  $animation-delay: null,
+  $animation-fill-mode: forwards,
+  $animation-iteration-count: null) {
+    animation-name: $animation-name;
+    animation-duration: $animation-duration;
+    animation-timing-function: $animation-timing-function;
+    animation-delay: $animation-delay;
+    animation-fill-mode: $animation-fill-mode;
+    animation-iteration-count: $animation-iteration-count;
+
+    @content //accept further properties(useful for instant changes or adding preserve-3d)
+}
+
+@mixin animation-base( //Large amount of optional arguments, so passed to next line
+  $animation-name: default,
+  $animation-duration: 300ms,
+  $animation-timing-function: null, //unless specified `null` creates no css output
+  $animation-delay: null,
+  $animation-fill-mode: forwards,
+  $animation-iteration-count: null) {
+    -webkit-animation-name: $animation-name;
+    -webkit-animation-duration: $animation-duration;
+    -webkit-animation-timing-function: $animation-timing-function;
+    -webkit-animation-delay: $animation-delay;
+    -webkit-animation-fill-mode: $animation-fill-mode;
+    -webkit-animation-iteration-count: $animation-iteration-count;
+    animation-name: $animation-name;
+    animation-duration: $animation-duration;
+    animation-timing-function: $animation-timing-function;
+    animation-delay: $animation-delay;
+    animation-fill-mode: $animation-fill-mode;
+    animation-iteration-count: $animation-iteration-count;
+
+    @content //accept further properties(useful for instant changes or adding preserve-3d)
+}

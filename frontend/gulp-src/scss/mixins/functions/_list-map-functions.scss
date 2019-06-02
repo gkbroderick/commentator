@@ -1,0 +1,46 @@
+//iterate through a list and remove the selected value
+//Adapted from http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
+@function remove-list($list, $value) {
+  $result: ();
+  @for $i from 1 to length($list) + 1 {
+    @if nth($list, $i) != $value {
+      $result: append($result, nth($list, $i));
+    }
+  }
+  @return $result;
+}
+
+//iterates through a map, combines any duplicate keyframes, and returns the compressed map
+@function map-compress-duplicate-keys($map) {
+  $newMap: ();
+  $keys: map-keys($map);
+  $testKeys: $keys;
+  @for $i from 1 through length($keys) {
+    $mainTestKey: nth($keys, $i);
+    //prevent duplicates
+    @if map-has-key($map, $mainTestKey) {
+      $mainTestProp: map-get($map, $mainTestKey);
+      //will merge current key/value at end if match found
+      $foundMatch: false;
+      $keyList: ($mainTestKey);
+      //remove $i tester from the testKeys
+      $testKeys: remove-list($testKeys, $mainTestKey);
+      // iterate again through testKeys to find match
+      @if length($testKeys) > 0 {
+        @for $j from 1 through length($testKeys) {
+          //if match
+          @if map-get($map, nth($testKeys, $j)) == $mainTestProp {
+            $foundMatch: true;
+            $matchedKey: nth($testKeys, $j);
+            $keyList: append($keyList, $matchedKey, comma);
+            //Prevent duplicates in further $i iterations
+            $map: map-remove($map, $matchedKey);
+          }
+        }
+      }
+      //merge in keyList
+      $newMap: map-merge($newMap, ($keyList: $mainTestProp));
+    }
+  }
+  @return $newMap;
+}

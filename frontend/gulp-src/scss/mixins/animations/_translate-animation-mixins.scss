@@ -1,0 +1,33 @@
+//"To" transitional animations
+
+
+@mixin translateto($custom-name, $initial-X: 0, $initial-Y: 0, $final-X: 100%, $final-Y: 100%,
+    $duration: null, $timing-function: null, $delay: null, $iterations: null) {
+  @include animation-base($custom-name, $duration, $timing-function, $delay, forwards, $iterations);
+  @include keyframe-dynamic($custom-name){
+    $map: (
+      0%: (transform: translate3d($initial-X, $initial-Y, 0) ),
+      100%: (transform: translate3d($final-X, $final-Y, 0) )
+    );
+
+    @include keyframes-base-map($custom-name, $map, false);
+  }
+}
+@mixin translatetoX($custom-name, $initial-X: 0, $final-X: 100%, $staticY: 0, // staticY will remain same throughout animation
+    $duration: null, $timing-function: null, $delay: null, $iterations: null) {
+  @include translateto($custom-name, $initial-X, $staticY, $final-X, $staticY, $duration, $timing-function, $delay, $iterations);
+}
+@mixin translatetoY($custom-name, $initial-Y: 0, $final-Y: 100%, $staticX: 0, // staticX will remain same throughout animation
+    $duration: null, $timing-function: null, $delay: null, $iterations: null) {
+  @include translateto($custom-name, $staticX, $initial-Y, $staticX, $final-Y, $duration, $timing-function, $delay, $iterations);
+}
+
+// .translateto {
+//   @include translateto(tt-test, -100px, -50px, 100px, 50px, 500ms, ease-out, 10s, 2)
+// }
+// .translatetoX {
+//   @include translatetoX(ttX-test, -100px, -50px, 10%, 500ms, ease-out, 10s, 2)
+// }
+// .translatetoY {
+//   @include translatetoY(ttY-test, -100px, -50px, 10%, 500ms, ease-out, 10s, 2)
+// }

@@ -1,0 +1,58 @@
+
+// Step-based animations for GIF-like effects. Swaps the positioning of a background image
+
+@mixin step-animation($custom-name, // Provide an animation name much like a -custom animation to avoid overwriting keyframe rules
+    $bg-image-full-width, //Full width of the background image file width to iterate through (for retina apply this as half the actual image's width, make sure background size is set appropriately)
+    $bg-image-frames, // Positive Integer - number of frames in the bg-image
+    $duration: 300ms, // default 300ms
+    $steps: $bg-image-frames, //Positive Integer - Number of transitions to go through. by default go though and back to start. To go to and stop at the end make this one less than the frame number
+    $starting-frame: 0, //Integer frame to start at (technically zero-indexed where the first frame will be '0')
+    $delay: null, $iterations: null, $steps-direction: end, $X-direction: true) {
+
+  @include animation-base($custom-name, $duration, steps($steps, $steps-direction), $delay, forwards, $iterations);
+
+  $frame-width: $bg-image-full-width / $bg-image-frames;
+  $starting-position: $frame-width * $starting-frame * -1; //Negative because moving the 0 position left or up, depending
+  $end-postion: $starting-position + $frame-width * $steps * -1;
+  @include keyframe-dynamic($custom-name){
+    @if $X-direction {
+      @include keyframes-base($custom-name, background-position, $starting-position, $end-postion);
+    }
+    @else {
+      @include keyframes-base($custom-name, background-position,(0 $starting-position),(0 $end-postion));
+    }
+  }
+}
+
+//Same as standard step-animation
+@mixin step-animation-Y($custom-name,
+    $bg-image-full-height, //Full height of the background image file width to iterate through (for retina add half the image width, make sure background size is set appropriately)
+    $bg-image-frames, // Integer number of frames in the bg-image
+    $duration: 300ms,
+    $steps: $bg-image-frames, //Number of transitions to go through. by default go though and back to start. To go to and stop at the end make this one less than the frame number
+    $starting-frame: 0, //Integer frame to start at (default is zero, ie start)
+    $delay: null, $iterations: null, $steps-direction: end, $X-direction: false) {
+
+    @include step-animation($custom-name, $bg-image-full-height, $bg-image-frames, $duration, $steps, $starting-frame,$delay,$iterations, $steps-direction, $X-direction)
+}
+
+////Tests for steps animation
+// .step-container {
+//   width: 300px;
+//   height: 250px;
+//   overflow: hidden;
+//   background: url(./StepsTest.png);
+//}
+////Vert
+// .step-container {
+//   width: 250px;
+//   height: 1200px;
+//   overflow: hidden;
+//   background: url(./StepsTest-Vert.png);
+// }
+// .step-animation-test {
+// //Default go through
+//   @include step-animation-Y(step-test, 1200px, 4, 900ms, 4)
+// //Stop at the last frame
+//   // @include step-animation(step-test, 1200px, 4, 900ms, 3)
+// }
