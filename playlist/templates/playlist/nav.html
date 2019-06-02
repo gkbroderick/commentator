@@ -7,6 +7,8 @@
   <button id="navBarBurgerButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  {% comment %}
+  {# commenting out for now--reinstate if multiple pages #}
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav ml-auto">
       {% if not currentpage_feed%}
@@ -19,8 +21,7 @@
           <a class="nav-link" href="{% url 'playlist' %}">List</a>
         </li>
       {% endif %}
-
-
     </ul>
   </div>
+  {% endcomment %}
 </nav>
