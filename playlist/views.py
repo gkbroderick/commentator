@@ -27,7 +27,7 @@ def playlist(request):
             kexp_play_id = play_item["playid"],
         )
         if db_match:
-            play_item['playlist_comments'] = db_match.first().comment_set.all()
+            play_item['playlist_comments'] = db_match.first().comment_set.all().order_by('date_created')
 
     context = {
         'playlist': data_parsed,

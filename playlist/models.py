@@ -17,8 +17,5 @@ class Comment(models.Model):
     date_created = models.DateTimeField('date created',  default=timezone.now)
     date_last_edited = models.DateTimeField('last edited',  default=timezone.now)
 
-    class Meta:
-        ordering = ['date_created']
-
     def __str__(self):
         return "%s, comment on %s" % (self.play_instance, self.date_created.strftime('%Y-%m-%d %H:%M:%S'))
