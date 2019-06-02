@@ -66,11 +66,4 @@ def comment(request):
             'comment_text' : comment.comment_text,
             'comment_time_edited' : comment.date_created,
         }
-
     return JsonResponse(response)
-
-
-
-
-
-        # response['id'] = register.id
