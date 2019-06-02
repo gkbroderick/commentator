@@ -71,7 +71,7 @@ function addSubmittedComment(playitemId, playitemName, playitemAirdate, commentI
   var content ='<div id="comment'+ commentId +'" class="playlist-comment">';
   content +=  '<h6>'+ createdDate.toLocaleString('en-us',{month:'long', year:'numeric', day:'numeric', hour:'numeric', minute:'numeric'}) +'</h6>';
   content += '<p id="commentText' + commentId + '" class="comment-text">' + commentText + '</p>';
-  content += '<button id="commentEditBtn'+ commentId + '" type="button" class="btn-box" onClick="toggleFormVis(\'commentEditBtn'+ commentId + '\',\'commentEditor'+ commentId + '\', \'Edit Comment\')" data-interacted="false"> Edit Comment </button>';
+  content += '<button id="commentEditBtn'+ commentId + '" type="button" class="btn-box comment-btn" onClick="toggleFormVis(\'commentEditBtn'+ commentId + '\',\'commentEditor'+ commentId + '\', \'Edit Comment\')" data-interacted="false"> Edit Comment </button>';
   content += '<div id="commentEditor' + commentId + '" class="hide-form comment-submit-form" action="" method="post" data-playitem-id="' + playitemId + '" data-playitem-name="' + playitemName + '" data-playitem-airdate="' + playitemAirdate + '" data-comment-id="'+ commentId + '">';
   content += '<textarea class="comment-text" name="comment_text" rows="4" cols="60" maxlength="2000">' + commentText + '</textarea>'
   content += '<input type="button" class="btn-box comment-btn" value="Submit Comment Edit" onClick="commentPost(event, \'commentEditor'+ commentId + '\')"> <span class="help-text"></span></div></div>';

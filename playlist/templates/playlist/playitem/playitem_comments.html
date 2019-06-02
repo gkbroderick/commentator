@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h5>Comments</h5>
+<h5 class="mt-4">Comments</h5>
 {% for comment in song.playlist_comments %}
   <div id="comment{{ comment.id }}" class="playlist-comment">
     <h6>{{comment.date_created|timezone:"America/Los_Angeles"}}</h6>
     <p id="commentText{{ comment.id }}" class="comment-text">{{ comment.comment_text }}</p>
-    <button id="commentEditBtn{{ comment.id }}" type="button" class="btn-box commment-button"
+    <button id="commentEditBtn{{ comment.id }}" type="button" class="btn-box comment-btn"
         onClick="toggleFormVis('commentEditBtn{{ comment.id }}','commentEditor{{comment.id}}', 'Edit Comment')" data-interacted='false'>
       Edit Comment
     </button>
@@ -27,7 +27,6 @@
     </div>
   </div>
 {% empty %}
-  <p></p>
 {% endfor %}
 <div id="newCommentContainer{{ song.playid }}" class="comment-new-insert-container"></div>
 

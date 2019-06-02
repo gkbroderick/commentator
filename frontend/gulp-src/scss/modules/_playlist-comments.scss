@@ -1,0 +1,28 @@
+
+.comment-btn {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.playlist-comment {
+  margin-bottom: 1.25em;
+  .comment-btn {
+    margin-top: 0.5em;
+  }
+}
+
+.comment-text {
+  white-space: pre-line;
+  margin-bottom: 0.15em;
+}
+
+.comment-submit-form {
+  textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+  .comment-btn {
+    margin-top: 0.25em;
+    margin-bottom: 1.25em;
+  }
+}
