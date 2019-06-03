@@ -187,3 +187,4 @@ The default action, `gulp`, will process files from `frontend/gulp-src` into a d
   - https://stackoverflow.com/questions/31236237/django-how-to-test-a-not-null-field
   - https://stackoverflow.com/questions/16214846/test-if-validationerror-was-raised
   - https://www.ericholscher.com/blog/2009/apr/16/testing-ajax-views-django/
+  - https://stackoverflow.com/questions/40995424/django-and-json-ajax-testing
