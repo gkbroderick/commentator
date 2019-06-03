@@ -2,11 +2,23 @@
 
 {% block content %}
 
+{% comment %}
+
+This section uses an Ajax request to `comment/` to send POST requests.
+
+The JavaScript for handling Post request is located at:
+`/playlist/static/playlist/comment_handling.js`
+
+{% endcomment %}
+
 <h5 class="mt-4">Comments</h5>
 {% for comment in song.playlist_comments %}
   <div id="comment{{ comment.id }}" class="playlist-comment">
+    {# declare token or else will 403 in firefox #}
+    {% csrf_token %}
     <h6>{{comment.date_created|timezone:"America/Los_Angeles"}}</h6>
     <p id="commentText{{ comment.id }}" class="comment-text">{{ comment.comment_text }}</p>
+    {# hide/show button for editing comment #}
     <button id="commentEditBtn{{ comment.id }}" type="button" class="btn-box comment-btn"
         onClick="toggleFormVis('commentEditBtn{{ comment.id }}','commentEditor{{comment.id}}', 'Edit Comment')" data-interacted='false'>
       Edit Comment
@@ -28,8 +40,9 @@
   </div>
 {% empty %}
 {% endfor %}
-<div id="newCommentContainer{{ song.playid }}" class="comment-new-insert-container"></div>
 
+{# Container for inserting new comments #}
+<div id="newCommentContainer{{ song.playid }}" class="comment-new-insert-container"></div>
 
 {# new comment submission form (assumes placed within a forloop) #}
 {# hide/show button for new comment#}
@@ -52,6 +65,5 @@
     onClick="commentPost(event, 'commentCreator{{ forloop.counter }}')">
   <span class='help-text'></span>
 </div>
-
 
 {% endblock %}

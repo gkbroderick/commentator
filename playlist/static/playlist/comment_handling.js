@@ -1,4 +1,6 @@
-//Submission
+//POST Submission added via Button click to the `comment/` view handler.
+// Handles new comments (commentId=0)
+// and editing previously submitted comments.
 function commentPost(event, elId) {
   event.preventDefault();
   var formEl = document.getElementById(elId);
@@ -9,7 +11,7 @@ function commentPost(event, elId) {
   var commentTextEl = formEl.querySelector('.comment-text');
   var helpText = formEl.querySelector('.help-text');
 
-  //quick validation
+  //quick validation on textarea
   if (commentTextEl.value.trim().length < 1) {
     helpText.innerText = "Please enter a comment."
     return;
@@ -47,8 +49,7 @@ function commentPost(event, elId) {
   });
 }
 
-//Helper Functions for hide/show buttons and adding new comments to DOM
-
+//Helper Function for hide/show comment submission form behavior
 function toggleFormVis(buttonElId, formElId, initMessage) {
   var buttonEl = document.getElementById(buttonElId);
   var el = document.getElementById(formElId);
@@ -63,7 +64,7 @@ function toggleFormVis(buttonElId, formElId, initMessage) {
   }
 }
 
-
+//Quick and DOM-thrashy function to add new comments after submission success
 function addSubmittedComment(playitemId, playitemName, playitemAirdate, commentId, commentText, commentDateCreated, csrfToken) {
   var elToAppend = document.getElementById("newCommentContainer" + playitemId);
   var el = document.createElement("div");
@@ -78,5 +79,4 @@ function addSubmittedComment(playitemId, playitemName, playitemAirdate, commentI
 
   el.innerHTML = content;
   elToAppend.appendChild(el);
-
 }

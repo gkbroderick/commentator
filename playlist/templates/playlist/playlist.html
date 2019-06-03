@@ -1,28 +1,28 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block nav %}
+  {% include "./nav.html" with currentpage_feed=True %}
+{% endblock %}
+
 {% block content %}
-{% include "./nav.html" with currentpage_feed=True %}
+  <div class="container">
+    <div class="songlist-title-container">
+      <h1>Playlist</h1>
+      <p>Here's the last hour played at <a href="http://kexp.org/" target="_blank">KEXP.org</a>.</p>
+      <p>Add comments to each entry:</p>
+    </div>
 
-<div class="container">
+    <div class="songlist-container row">
+      {% for song in playlist %}
+        {% include "./playitem/playitem_partial.html" %}
+      {% empty %}
+        <p class="notice">Looks like there were no songs played in the last hour that could be commented on!</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
 
-<div class="songlist-title-container">
-  <h1>Playlist</h1>
-  <p>Here's the last hour played at <a href="http://kexp.org/" target="_blank">KEXP.org</a>.</p>
-  <p>Add comments to each entry:</p>
-
-</div>
-
-
-<div class="songlist-container row">
-  {% for song in playlist %}
-    {% include "./playitem/playitem_partial.html" %}
-  {% empty %}
-    <p class="notice">Looks like there were no songs played in the last hour that could be commented on!</p>
-  {% endfor %}
-</div>
-</div>
-
-<script src="{% static 'playlist/comment_handling.js'%}"></script>
-
+{% block scripts-calls-main %}
+  <script src="{% static 'playlist/comment_handling.js'%}"></script>
 {% endblock %}

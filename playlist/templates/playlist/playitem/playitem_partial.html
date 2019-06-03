@@ -2,7 +2,6 @@
 
 {% block content %}
 <div class="song-container row">
-
   <div class="song-art-container col-12 col-sm-3 offset-sm-2">
     <img class="songlist-album-art" src="{{song.release.largeimageuri|default:backup_album_image}}"
       alt="{{ song.release.name|default:"" }}">
