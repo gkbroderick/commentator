@@ -46,11 +46,13 @@ Included in the repo is the processed stylesheets and vendor JS inside the `fron
 ## Project Assumptions
 ### Assumptions made leading to the current design
   - Only going to be used on the American west coast (simplifying time conversions)
+  - Multiple Comments per play item is acceptable
   - Comments can be anonymous (author-less) for now
   - No user account system necessary yet
   - Based on the 'DJ Comments' section of the current playlist
   - The “playid” of each play instance from the KEXP Legacy API is unique
   - Only “media play” and “airbreak” items are necessary to list
+  - Airbreak comments are OK and/or desirable
   - Using a virtual environment for local setup
   - Comment updates via an Ajax Post request are preferable in the UI to a full Django form submission cycle
 
