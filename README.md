@@ -2,7 +2,7 @@
 Django app using [KEXP](https://kexp.org/)'s [playlist feed](http://128.208.196.80/) to add playlist comments to a PSQL backend.
 
 ---
-## Local Setup Quickstart Version
+## Local Setup—Quickstart Version
 This assumes Python3.6 and Postgres are installed.
 
 ### OS vars
@@ -56,7 +56,7 @@ Included in the repo is the processed stylesheets and vendor JS inside the `fron
 
 ---
 
-## Local Setup Verbose Version
+## Local Setup—Verbose Version
 
 Make sure you have Python (preferably Python3.6 with Pip), Postgres, and Node (though please note Node is only required if you need to alter the frontend) installed on your machine. All three should be available with [Homebrew](https://brew.sh/).
 
@@ -154,8 +154,8 @@ The default action, `gulp`, will process files from `frontend/gulp-src` into a d
 
 `gulp --out production` will output a production-ready file from `./gulp-src` to `./production`. This should minify code without sourcemaps and so is not recommended for debugging.
 
-## Django Usage
-### Setup and Run Django
+### Django Usage
+#### Setup and Run Django
   - Migrate your new database with `python3 manage.py makemigrations` followed by `python3 manage.py migrate`
   - Run tests `python3 manage.py tests`
   - Run the development server with `python3 manage.py runserver`
@@ -168,7 +168,7 @@ The default action, `gulp`, will process files from `frontend/gulp-src` into a d
 ### django 1.11 docs (fairly extensively):
   - https://docs.djangoproject.com/en/1.11/
 
-### KEXP Playlist (format and API call syntax)
+### KEXP Playlist (format and API call syntax):
   - https://kexp.org/playlist/
   - https://legacy-api.kexp.org/
 
