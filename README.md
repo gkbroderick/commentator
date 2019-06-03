@@ -2,11 +2,11 @@
 Django app using [KEXP](https://kexp.org/)'s [playlist feed](http://128.208.196.80/) to add playlist comments to a PSQL backend.
 
 ---
-##Local Setup Quickstart Version
+## Local Setup Quickstart Version
 This assumes Python3.6 and Postgres are installed.
 
-###OS vars
-Set up a virtual environment with these OS variables (though secret key is somewhat arbitrary):
+### OS vars
+Set up a virtual environment with these OS variables (secret key should be [random but unique](https://stackoverflow.com/a/16630719)):
 ```
 DB_NAME=database_name
 DB_USER=database_user
@@ -15,22 +15,22 @@ DJANGO_SECRET_KEY='fp3xwka$0_vlq=9velgupm3@bl0kujs3**5a!=2wm-8n^)qy1j'
 ```
 (alternatively, if not using a virtual environment, update them in `commentator/settings.py`, though this is not recommended)
 
-###Database setup
+### Database setup
 In psql, create `database_user` with `database_password`, then `database_name` with owner  `database_user`. Make sure the `database_user` can create databases for running tests.
 
-###Python dependencies
+### Python dependencies
 
 Hopefully inside your virtual environment, install Python dependencies:
 ```
 pip3 install -r requirements.txt
 ```
-The Django commentator app should now be ready to run locally after migrations.
+The Django commentator app should now be ready to run locally after migrations. Home directory `/` of the server should redirect to the project at `/playlist/`.
 
-###Frontend Processing (optional)
-Included in the repo is the processed stylesheets and vendor js inside the `frontend` app. If you need to re-run the frontend Gulp system, with Node installed, run `npm install` and run a pre-processor pass with `gulp out`.
+### Frontend Processing (optional)
+Included in the repo is the processed stylesheets and vendor JS inside the `frontend` app. If you need to re-run the frontend Gulp system, with Node installed, run `npm install` and run a pre-processor pass with `gulp out`.
 
 ---
-##Project Requirements
+## Project Requirements
   - Create a Django project
   - Create a URLs path that maps to “Playlist”
   - Create at least one Django App
@@ -43,19 +43,24 @@ Included in the repo is the processed stylesheets and vendor js inside the `fron
   - Write at least two test cases around your model behavior
 
 ---
-##Project Assumptions
-  - Only going to be used on the American west coast (simplifying UTC conversion)
-  - no user account system necessary (all comments are anonymous)
-  - only “media play” and “airbreak” items are necessary to list
-  - using a virtual environment for local setup
-  - the “playid” of each play instance from the KEXP Legacy API is unique
+## Project Assumptions
+### Assumptions made leading to the current design
+  - Only going to be used on the American west coast (simplifying time conversions)
+  - Comments can be anonymous (author-less) for now
+  - No user account system necessary yet
+  - Based on the 'DJ Comments' section of the current playlist
+  - The “playid” of each play instance from the KEXP Legacy API is unique
+  - Only “media play” and “airbreak” items are necessary to list
+  - Using a virtual environment for local setup
+  - Comment updates via an Ajax Post request are preferable in the UI to a full Django form submission cycle
 
 ---
-##Local Setup Verbose Version
+
+## Local Setup Verbose Version
 
 Make sure you have Python (preferably Python3.6 with Pip), Postgres, and Node (though please note Node is only required if you need to alter the frontend) installed on your machine. All three should be available with [Homebrew](https://brew.sh/).
 
-###Virtual Environment Setup and OS variables
+### Virtual Environment Setup and OS variables
 Set up a virtual environment for handling OS variables and installing the project's Python packages non-globally. There are a few ways to setup a virtual environment for Python. I use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/#) locally.
 
 Using venvwrapper, create a virtual environment with:
@@ -69,7 +74,7 @@ Set a directory for the Virtual Environment to automatically go to on activation
 setvirtualenvproject $VIRTUAL_ENV .
 ```
 
-####Setting the necessary OS variables for the virtual environment
+#### Setting the necessary OS variables for the virtual environment
 
 Inside your virtual environment, it's necessary to set up several variables to ensure Django has access to the Postgres database credentials and the crypto key without exposing them. You can set them once inside your virtual environment by editing its `postactivate` and `predeactivate` scripts.
 
@@ -95,7 +100,7 @@ unset DJANGO_SECRET_KEY
 
 ```
 
-###Postgres Setup
+### Postgres Setup
 
 Enter the Postgres CLI with
 ```
@@ -118,7 +123,7 @@ ALTER USER database_user CREATEDB;
 ```
 See Django setup for information on then migrating model information to the DB.
 
-###Python Dependency Setup
+### Python Dependency Setup
 Inside your virtual environment, install Python dependencies:
 ```
 pip3 install -r requirements.txt
@@ -132,31 +137,42 @@ pip3 freeze > requirements.txt
 Note these could simply be `pip` instead of `pip3` depending on your machine's Python setup.
 
 
-###Gulp Frontend
+### Gulp Frontend
 
 This project uses the gulp pre-processor system to process Sass to CSS and minify/Concat JS for production. A production version of the current stylesheet should be saved to the main repo so this is optional in the event the frontend app needs alteration.
 
-####Installation
+#### Installation
 Install Node dependencies by going to the project directory and entering:
 ```
 npm install
 ```
 This should install all Node packages outlined in `package.json`. You may need to change your Node version to `8.11.3` via [NVM (node Version Manager)](https://github.com/creationix/nvm).
 
-####Gulp Usage
+#### Gulp Usage
 
 The default action, `gulp`, will process files from `frontend/gulp-src` into a debuggable dev version into its output directory, in this case `frontend/static/frontend/` and start a watch on the src directory. Stop this watch at any time with ctrl + c.
 
 `gulp --out production` will output a production-ready file from `./gulp-src` to `./production`. This should minify code without sourcemaps and so is not recommended for debugging.
 
+## Django Usage
+### Setup and Run Django
+  - Migrate your new database with `python3 manage.py makemigrations` followed by `python3 manage.py migrate`
+  - Run tests `python3 manage.py tests`
+  - Run the development server with `python3 manage.py runserver`
+  - Barring any issues, the app should now be running on port 8000, [http://localhost:8000/]
+
 ---
 
-##Resources Used
+## Resources Used
 
-###django 1.11 docs (fairly extensively):
+### django 1.11 docs (fairly extensively):
   - https://docs.djangoproject.com/en/1.11/
 
-###datetime editing:
+### KEXP Playlist (format and API call syntax)
+  - https://kexp.org/playlist/
+  - https://legacy-api.kexp.org/
+
+### datetime editing:
   - https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
   - https://stackoverflow.com/questions/17594298/date-time-formats-in-python
   - https://stackoverflow.com/questions/969285/how-do-i-translate-an-iso-8601-datetime-string-into-a-python-datetime-object
@@ -164,24 +180,24 @@ The default action, `gulp`, will process files from `frontend/gulp-src` into a d
   - https://stackoverflow.com/questions/7065164/how-to-make-an-unaware-datetime-timezone-aware-in-python
   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
 
-###form handling:
+### form handling:
   - https://stackoverflow.com/questions/46310867/stop-page-from-redirecting-after-form-submission-in-django
   - https://stackoverflow.com/questions/2476382/how-to-check-if-a-textarea-is-empty-in-javascript-or-jquery
 
-###Ajax:
+### Ajax:
   - https://docs.djangoproject.com/en/1.11/ref/csrf/
   - http://api.jquery.com/jquery.ajax/
   - https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html
 
-###templates:
+### templates:
   - https://stackoverflow.com/questions/11481499/django-iterate-number-in-for-loop-of-a-template
 
-###styling:
+### styling:
   - https://getbootstrap.com/docs/4.0/layout/grid/
   - https://getbootstrap.com/docs/4.0/utilities/spacing/
   - https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
 
-###testing:
+### testing:
   - https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
   - https://docs.djangoproject.com/en/1.11/topics/testing/
   - https://stackoverflow.com/questions/31236237/django-how-to-test-a-not-null-field
