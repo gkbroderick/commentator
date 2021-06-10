@@ -1,6 +1,6 @@
 certifi==2019.3.9
 chardet==3.0.4
-Django==1.11.20
+Django==2.2.24
 idna==2.8
 postgres==2.2.2
 psycopg2==2.8.2
